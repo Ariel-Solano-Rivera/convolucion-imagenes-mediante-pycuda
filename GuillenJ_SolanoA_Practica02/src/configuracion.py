@@ -38,3 +38,15 @@ IMAGENES = RESULTADOS / "imagenes"
 GRAFICAS = RESULTADOS / "graficas"
 REFERENCIAS = RESULTADOS / "referencias"
 KERNEL = RAIZ / "src" / "kernels" / "convolucion.cu"
+
+# Imagenes de P01: se leen desde su carpeta, sin duplicarlas ni regenerarlas.
+IMAGENES_P01 = {
+    2000: DATOS_P01 / "base_2000.pgm",
+    4000: DATOS_P01 / "base_4000.pgm",
+    6000: DATOS_P01 / "base_6000.pgm",
+}
+NO_MULTIPLO = DATOS_P01 / "no_multiplo_1013x757.pgm"
+HASHES_P01 = DATOS / "hashes_p01.json"
+IMAGEN_ORIGEN_P01 = P01 / "imagenes" / "ImagenGrande.jpg"
+# Imagenes nuevas de P02 (piloto de Python secuencial), en DATOS.
+RESOLUCIONES_NUEVAS = (250, 500)
