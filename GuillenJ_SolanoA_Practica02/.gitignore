@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+*.exe
+*.exp
+*.lib
+*.obj
+resultados/referencias/*.bin
+.pytest_cache/

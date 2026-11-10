@@ -1,0 +1,1 @@
+"""Filtro laplaciano en CPU."""

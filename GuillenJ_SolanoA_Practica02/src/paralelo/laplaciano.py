@@ -1,0 +1,1 @@
+"""Filtro laplaciano usando PyCUDA."""
