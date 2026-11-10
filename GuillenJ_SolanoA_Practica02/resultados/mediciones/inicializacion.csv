@@ -1,0 +1,5 @@
+fecha,version,etapa,tiempo,unidad,uso_cache,observaciones
+2026-11-10T15:53:28,pycuda,contexto,57.2177,ms,NA,cuda.init + Device(0).make_context
+2026-11-10T15:53:28,pycuda,compilacion_sin_cache,407.2661,ms,no,nvcc -O3 -arch sm_86
+2026-11-10T15:53:28,pycuda,carga_con_cache,12.5136,ms,si,acierto de cache
+2026-11-10T15:53:28,pycuda,get_function,0.0684,ms,NA,convolucionGPU

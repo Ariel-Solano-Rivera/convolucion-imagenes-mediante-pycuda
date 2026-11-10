@@ -137,6 +137,23 @@ def calcular_gpu(entrada, mascara, ancho, alto, k, hilos, salida_inicial=None):
     return salida
 
 
+UNIDAD_REDONDEO = float(np.finfo(np.float32).eps) / 2  # u = 2^-24; eps = 2^-23 = 1.19e-7
+MAXIMO_PIXEL = 255.0
+
+
+def tolerancia(mascara):
+    """Cota del error entre dos resultados float32 del mismo producto punto de n = k*k terminos.
+
+    Cada version (con o sin FMA) cumple |calculado - exacto| <= gamma_n * S, con
+    gamma_n = n*u / (1 - n*u) y S = sum|pixel * coeficiente| <= 255 * sum|coeficiente|.
+    Entre dos versiones el error es <= 2 * gamma_n * S, es decir ~ n * eps * S.
+    """
+    n = mascara.size
+    gamma = n * UNIDAD_REDONDEO / (1 - n * UNIDAD_REDONDEO)
+    suma_abs = MAXIMO_PIXEL * float(np.abs(mascara.astype(np.float64)).sum())
+    return 2 * gamma * suma_abs
+
+
 # Obtiene el error maximo y el error medio respecto de la referencia (como compararCPUyGPU).
 def comparar(referencia, otra):
     # La resta y el valor absoluto en float32, como fabs(cpu[i] - gpu[i]) en P01;
