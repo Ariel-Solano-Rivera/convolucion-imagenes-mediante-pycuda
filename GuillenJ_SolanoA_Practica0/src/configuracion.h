@@ -1,4 +1,4 @@
-// Parametros generales de las mediciones y filtros.
+
 #pragma once
 constexpr int REPETICIONES = 10;
 constexpr double SEGUNDOS_CALENTAMIENTO_GPU = 2.0;

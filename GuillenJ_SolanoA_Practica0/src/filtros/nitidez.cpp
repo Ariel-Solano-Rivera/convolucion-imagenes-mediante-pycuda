@@ -1,4 +1,4 @@
-// Mascara fija 3x3 que resalta detalles.
+
 #include "mascaras.h"
 
 std::vector<float> crearMascaraNitidez() {

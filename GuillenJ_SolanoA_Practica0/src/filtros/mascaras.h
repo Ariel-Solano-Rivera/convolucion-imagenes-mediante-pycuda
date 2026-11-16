@@ -1,4 +1,4 @@
-// Declaraciones de las tres mascaras de convolucion.
+
 #pragma once
 #include <vector>
 

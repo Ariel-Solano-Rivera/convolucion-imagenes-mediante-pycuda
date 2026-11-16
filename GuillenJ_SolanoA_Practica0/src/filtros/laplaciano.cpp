@@ -1,4 +1,4 @@
-// Mascara fija 3x3 para detectar bordes.
+
 #include "mascaras.h"
 
 std::vector<float> crearMascaraLaplaciano() {

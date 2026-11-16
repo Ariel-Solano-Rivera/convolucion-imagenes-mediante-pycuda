@@ -1,4 +1,4 @@
-// Funciones compartidas por los filtros CPU y CUDA.
+
 #pragma once
 #include "configuracion.h"
 #include <vector>

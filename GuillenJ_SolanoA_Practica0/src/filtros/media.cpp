@@ -1,4 +1,4 @@
-// Mascara de media de tamano variable.
+
 #include "mascaras.h"
 
 std::vector<float> crearMascaraMedia(int tamano) {

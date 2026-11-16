@@ -1,4 +1,4 @@
-// Lectura y escritura de imagenes PGM de 8 bits.
+
 #include "imagenes.h"
 
 #include <cmath>
@@ -22,7 +22,7 @@ float* leerPGM(const char* ruta, int* ancho, int* alto) {
     return datos;
 }
 
-// Convierte la salida float a una imagen PGM visible.
+
 void guardarPGM(const char* ruta, const float* datos,
                 int ancho, int alto, bool laplaciano) {
     int n = ancho * alto;

@@ -1,10 +1,10 @@
-// Pruebas, mediciones y experimentos de la practica.
+
 #include "experimentos.h"
 #include "configuracion.h"
 #include "filtros.cuh"
 #include "imagenes.h"
-#include "paralelo/filtros_paralelos.cuh"
-#include "secuencial/filtros_secuenciales.h"
+#include "cuda_c/filtros_paralelos.cuh"
+#include "secuencial_c/filtros_secuenciales.h"
 
 #include <chrono>
 #include <cmath>
@@ -18,7 +18,7 @@ namespace {
 FILE* tiempos;
 FILE* validacion;
 
-// Carga una imagen PGM y libera sus datos cuando termina de usarse.
+
 struct Imagen {
     int ancho, alto;
     float* datos;
@@ -27,7 +27,7 @@ struct Imagen {
     ~Imagen() { std::free(datos); }
 };
 
-// Calcula una vez en CPU y GPU. Se usa solo en las pruebas de correccion.
+
 void calcularAmbas(const float* entrada, int ancho, int alto,
                    const float* mascara, int k, int hilos,
                    float* cpu, float* gpu) {
@@ -45,7 +45,7 @@ void calcularAmbas(const float* entrada, int ancho, int alto,
     cudaFree(dMascara);
 }
 
-// Ejecuta una configuracion completa y guarda sus tiempos y validacion.
+
 void ejecutar(const Imagen& imagen, int filtro, int k, int hilos,
              bool medirCPU, const char* salidaCPU = nullptr,
              const char* salidaGPU = nullptr) {
@@ -58,7 +58,7 @@ void ejecutar(const Imagen& imagen, int filtro, int k, int hilos,
                 hilos, bloques);
 
     if (medirCPU) {
-        // Calentamiento CPU: esta ejecucion no se guarda.
+
         ejecutarFiltroCPU(filtro, imagen.datos, cpu.data(), imagen.ancho,
                           imagen.alto, k);
         for (int r = 1; r <= REPETICIONES; r++) {
@@ -80,7 +80,7 @@ void ejecutar(const Imagen& imagen, int filtro, int k, int hilos,
     cudaMalloc(&dSalida, n * sizeof(float));
     cudaMalloc(&dMascara, k * k * sizeof(float));
 
-    // Calentamiento GPU durante dos segundos, sin guardar sus tiempos.
+
     auto inicio = std::chrono::steady_clock::now();
     while (std::chrono::duration<double>(
                std::chrono::steady_clock::now() - inicio).count() <
@@ -120,7 +120,7 @@ void ejecutar(const Imagen& imagen, int filtro, int k, int hilos,
                    filtro == LAPLACIANO);
 }
 
-// Comprueba la convolucion con una matriz 5x5 y valores calculados a mano.
+
 void pruebaManual() {
     float imagen[] = {35, 40, 41, 45, 50,
                       40, 40, 42, 46, 52,
@@ -161,7 +161,7 @@ void pruebaManual() {
     std::fclose(archivo);
 }
 
-// Prueba que el ultimo bloque incompleto tambien calcule sus pixeles.
+
 void pruebaNoMultiplo() {
     Imagen imagen("datos/no_multiplo_1013x757.pgm");
     int n = imagen.ancho * imagen.alto;
@@ -184,7 +184,7 @@ void pruebaNoMultiplo() {
         }
     }
 }
-} // namespace
+}
 
 int ejecutarPractica() {
     _mkdir("resultados");

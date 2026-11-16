@@ -3,4 +3,7 @@ __pycache__/
 *.exe
 *.exp
 *.lib
+*.obj
+.pytest_cache/
+resultados/referencias/*.bin
 .venv/

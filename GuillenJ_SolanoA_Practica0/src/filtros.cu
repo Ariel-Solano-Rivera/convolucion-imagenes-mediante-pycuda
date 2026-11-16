@@ -1,4 +1,4 @@
-// Convolucion comun para CPU y CUDA, mas la medicion de tiempos.
+
 #include "filtros.cuh"
 #include "filtros/mascaras.h"
 
@@ -8,14 +8,14 @@
 
 const char* NOMBRE_FILTRO[] = {"media", "nitidez", "laplaciano"};
 
-// Escoge los coeficientes del filtro solicitado.
+
 std::vector<float> crearMascara(int filtro, int k) {
     if (filtro == MEDIA) return crearMascaraMedia(k);
     return filtro == NITIDEZ ? crearMascaraNitidez()
                              : crearMascaraLaplaciano();
 }
 
-// Version secuencial: recorre todos los pixeles y sus vecinos.
+
 void convolucionCPU(const float* entrada, float* salida,
                     const float* mascara, int ancho, int alto, int k) {
     int radio = k / 2;
@@ -36,7 +36,7 @@ void convolucionCPU(const float* entrada, float* salida,
     }
 }
 
-// Kernel CUDA: un hilo calcula un pixel de la imagen.
+
 __global__ void convolucionGPU(const float* entrada, float* salida,
                                const float* mascara, int ancho, int alto,
                                int k) {
@@ -58,7 +58,7 @@ __global__ void convolucionGPU(const float* entrada, float* salida,
     salida[id] = suma;
 }
 
-// Mide solamente la convolucion secuencial.
+
 double ejecutarCPU(const float* entrada, float* salida,
                    const float* mascara, int ancho, int alto, int k) {
     auto inicio = std::chrono::steady_clock::now();
@@ -67,7 +67,7 @@ double ejecutarCPU(const float* entrada, float* salida,
         std::chrono::steady_clock::now() - inicio).count();
 }
 
-// Mide transferencia CPU-GPU, kernel y transferencia GPU-CPU.
+
 TiemposGPU ejecutarGPU(const float* entrada, float* salida,
                        const float* mascara, float* dEntrada,
                        float* dSalida, float* dMascara, int ancho,
@@ -100,7 +100,7 @@ TiemposGPU ejecutarGPU(const float* entrada, float* salida,
     return t;
 }
 
-// Obtiene el error maximo y el error medio entre CPU y GPU.
+
 void compararCPUyGPU(const float* cpu, const float* gpu, int n,
                      double* maximo, double* medio) {
     *maximo = *medio = 0;
